@@ -1,7 +1,7 @@
 # matrix-lib
 # Matrix Library
 
-My Matrix Library is a powerful Rust library designed to provide efficient and flexible matrix operations. It aims to be a comprehensive solution for various matrix-related tasks, offering a wide range of features and functionality. Whether you're working with dense matrices, sparse matrices, or specialized matrix structures, this library has you covered.
+Matrix Library is a powerful Rust library designed to provide efficient and flexible matrix operations. It aims to be a comprehensive solution for various matrix-related tasks, offering a wide range of features and functionality. Whether you're working with dense matrices, sparse matrices, or specialized matrix structures, this library has you covered.
 
 ## Key Features
 
@@ -25,4 +25,4 @@ To use My Matrix Library in your Rust project, simply add it as a dependency in 
 
 ```toml
 [dependencies]
-my-matrix-library = "0.1.0"
+Matrix-lib = "0.1.0"
