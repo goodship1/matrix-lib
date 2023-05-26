@@ -60,5 +60,5 @@ where
         Err("Invalid element index".to_string())
     }
 
-    // Other operations can be implemented here, such as matrix addition, multiplication, etc.
+    // Other operations can be implemented here on in operations.rs might try to break all operations up
 }
