@@ -54,6 +54,27 @@ impl Matrix {
         matrix
     }
     //todo create a triangle lower and above with own values
+    pub fn triangle_lower_data(data: &[f64], rows: usize) -> Result<Self, &'static str> {
+    let expected_elements = rows * (rows + 1) / 2;
+    
+    if data.len() != expected_elements {
+        return Err("Invalid number of data elements.");
+    }
+    
+    let mut matrix = Matrix::zero(rows, rows);
+    
+    for row in 0..rows {
+        for col in 0..=row {
+            let index = row * (row + 1) / 2 + col;
+            matrix.set(row, col, data[index]);
+        }
+    }
+    
+    Ok(matrix)
+}
+
+   
+    
     pub fn identity(rows: usize) -> Self {
         let mut matrix = Matrix::zero(rows, rows);
         for x in 0..rows {
@@ -61,7 +82,10 @@ impl Matrix {
         }
         matrix
     }
-
+    
+    
+    
+        
     pub fn display_matrix(&self) {
         for x in 0..self.rows {
             for y in 0..self.cols {
