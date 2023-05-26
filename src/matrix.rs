@@ -15,7 +15,7 @@ impl Matrix {
             elements,
         }
     }
-
+    
     pub fn get(&self, row: usize, col: usize) -> f64 {
         self.elements[row * self.cols + col]
     }
@@ -53,7 +53,7 @@ impl Matrix {
         }
         matrix
     }
-
+    //todo create a triangle lower and above with own values
     pub fn identity(rows: usize) -> Self {
         let mut matrix = Matrix::zero(rows, rows);
         for x in 0..rows {
