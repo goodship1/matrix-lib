@@ -12,6 +12,9 @@ Matrix Library is a powerful Rust library designed to provide efficient and flex
 - **Sparse Matrix Support:** Benefit from efficient handling of sparse matrices, which are particularly useful when dealing with large matrices with many zero elements. The library provides optimized algorithms for sparse matrix multiplication, scalar multiplication, transposition, and other operations.
 
 - **Banded Matrix Support:** Utilize banded matrices, a specialized matrix structure where the non-zero elements are confined to a narrow band along the diagonal. This can significantly reduce memory usage and computation time for certain types of matrices.
+- **Block Matrices:** Support for block matrices, which allow matrices to be divided into smaller blocks for efficient computation and storage.
+
+
 
 - **Element-Wise Operations:** Perform element-wise operations on matrices, such as element-wise addition, subtraction, multiplication, and division. These operations enable you to manipulate individual elements of a matrix easily.
 
