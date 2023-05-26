@@ -3,9 +3,10 @@ Matrix.rs Documentation
 ===========================
 
 
-# Creating basic types of matrices 2 x 2.
+Creating basic types of matrices 2 x 2.
 
 .. code-block:: rust
+   
    use::crate::matrix::Matrix;
    fn main() {
        let values = &[1.0, 2.0, 3.0, 4.0];
