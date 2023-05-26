@@ -1,0 +1,61 @@
+pub struct CSRMatrix {
+    values: Vec<f64>,
+    row_indices: Vec<usize>,
+    col_indices: Vec<usize>,
+}
+
+impl CSRMatrix {
+    pub fn new(values: Vec<f64>, row_indices: Vec<usize>, col_indices: Vec<usize>) -> Self {
+        assert_eq!(values.len(), col_indices.len());
+        assert_eq!(row_indices.len(), col_indices.len() + 1);
+        
+        CSRMatrix {
+            values,
+            row_indices,
+            col_indices,
+        }
+    }
+    
+    pub fn get(&self, row: usize, col: usize) -> f64 {
+        let start = self.row_indices[row];
+        let end = self.row_indices[row + 1];
+        
+        for i in start..end {
+            if self.col_indices[i] == col {
+                return self.values[i];
+            }
+        }
+        
+        0.0 // Return 0 if the element is not found
+    }
+    
+    pub fn set(&mut self, row: usize, col: usize, value: f64) {
+        let start = self.row_indices[row];
+        let end = self.row_indices[row + 1];
+        
+        for i in start..end {
+            if self.col_indices[i] == col {
+                self.values[i] = value;
+                return;
+            }
+        }
+        
+        // If the element is not found, insert it
+        let insert_pos = self.row_indices[row];
+        self.values.insert(insert_pos, value);
+        self.col_indices.insert(insert_pos, col);
+        
+        // Update the row indices of subsequent rows
+        for i in (row + 1)..=self.row_indices.len() {
+            self.row_indices[i] += 1;
+        }
+    }
+    
+    pub fn rows(&self) -> usize {
+        self.row_indices.len() - 1
+    }
+    
+    pub fn cols(&self) -> usize {
+        self.col_indices.iter().max().copied().unwrap_or(0) + 1
+    }
+}
