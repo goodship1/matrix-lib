@@ -72,6 +72,24 @@ impl Matrix {
     
     Ok(matrix)
 }
+pub fn triangle_above_data(data: &[f64], rows: usize) -> Result<Self, &'static str> {
+    let expected_elements = rows * (rows + 1) / 2;
+    
+    if data.len() != expected_elements {
+        return Err("Invalid number of data elements.");
+    }
+    
+    let mut matrix = Matrix::zero(rows, rows);
+    
+    for row in 0..rows {
+        for col in row..rows {
+            let index = col * (col + 1) / 2 + row;
+            matrix.set(row, col, data[index]);
+        }
+    }
+    
+    Ok(matrix)
+}
 
    
     
