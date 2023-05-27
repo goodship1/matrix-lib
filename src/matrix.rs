@@ -92,7 +92,7 @@ pub fn triangle_above_data(data: &[f64], rows: usize) -> Result<Self, &'static s
 }
 
    
-    
+   
     pub fn identity(rows: usize) -> Self {
         let mut matrix = Matrix::zero(rows, rows);
         for x in 0..rows {
@@ -100,7 +100,6 @@ pub fn triangle_above_data(data: &[f64], rows: usize) -> Result<Self, &'static s
         }
         matrix
     }
-    
     
     
         
