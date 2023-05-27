@@ -19,7 +19,26 @@ pub fn add(mat: &Matrix, matone: &Matrix) -> Option<Matrix> {
 
     Some(new_mat)
 }
+pub fn trace(mat:&Matrix) -> f64{
+      assert_eq!(mat.rows,mat.col,"Matrix has to be square.");
+      let mut trace = 0.0;
+      for x in 0..mat.rows{
+           trace += mat.get(x,x);
+    }
+    trace
+}
 
+pub fn sparsetrace(mat:&SparseMatrix) -> f64{
+    assert_eq!(mat.rows,mat.cols,"Matrix has to be square.");
+    let mut trace  = 0.0;
+    for x in 0..mat.rows{
+        let Some(value) = mat.get(x,x){
+            trace += value;
+        }
+    }
+    trace
+}
+          
 pub fn multiply(mat: &Matrix, matone: &Matrix) -> Option<Matrix> {
     if mat.cols != matone.rows {
         return None; // Return None if the matrices have incompatible dimensions
