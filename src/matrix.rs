@@ -248,7 +248,7 @@ impl Matrix {
 
     
     pub fn row_scale(&mut self,row:usize,scalar:f64){
-	for x in 0..self.rows{
+	for x in 0..self.cols{
         let val =  self.get(row,x) * scalar;
 	self.set(row,x,val)
        }
@@ -256,14 +256,14 @@ impl Matrix {
      
     
     pub fn col_scale(&mut self,col:usize,scalar:f64) {
-	for x in 0..self.cols{
+	for x in 0..self.rows{
 		let val = self.get(col,x) * scalar;
-		self.set(col,x ,val);
+		self.set(x,col ,val);
 	}
       }
 
 
-pub fn swap_rows(&mut self, row1: usize, row2: usize) {
+  pub fn swap_rows(&mut self, row1: usize, row2: usize) {
         assert!(row1 < self.rows, "Row1 index out of bounds.");
         assert!(row2 < self.rows, "Row2 index out of bounds.");
 
@@ -274,12 +274,32 @@ pub fn swap_rows(&mut self, row1: usize, row2: usize) {
         }
     }
 
-    fn is_zero(&self, value: f64) -> bool {
+    fn is_zero(value: f64) -> bool {
         const EPSILON: f64 = 1e-10;
         value.abs() < EPSILON
     }
 
-    
+pub fn lu_decomposition(&mut self) -> Option<()> {
+    assert!(self.rows == self.cols, "Matrix has to be square");
+
+    for k in 0..self.rows {
+        for i in (k + 1)..self.rows {
+            if self.get(k, k) == 0.0 {
+                return None; // LU decomposition failed
+            }
+
+            let factor = self.get(i, k) / self.get(k, k);
+            self.set(i, k, factor);
+
+            for j in (k + 1)..self.rows {
+                let val = self.get(i, j) - factor * self.get(k, j);
+                self.set(i, j, val);
+            }
+        }
+    }
+
+    Some(()) 
+}
     
 
     pub fn display_matrix(&self) {
