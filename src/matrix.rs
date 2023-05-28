@@ -235,6 +235,42 @@ impl Matrix {
     }
 
 
+    
+
+    pub fn power(&self, exponent: usize) -> Result<Matrix, &'static str> {
+        if self.rows != self.cols {
+            return Err("Matrix is not square.");
+        }
+
+        if exponent == 0 {
+            // Return the identity matrix
+            return Ok(Matrix::identity(self.rows));
+        }
+
+        let mut new_matrix = self.clone();
+
+        for _ in 1..exponent {
+            new_matrix = match new_matrix.multiply(&self) {
+                Ok(m) => m,
+                Err(e) => return Err(e), // Propagate the error from matrix multiplication
+            };
+        }
+
+        Ok(new_matrix)
+    }
+     
+    pub fn trace(self) -> f64 {
+	    assert_eq!(self.rows,self.col,"Matrix has to be square");
+	    let mut trace = 0.0';// stores the trace variable
+	    for x in 0..self.rows{
+		    trace +=  self.get(x,x);
+	        }
+	    trace
+    }
+
+
+
+
     pub fn display_matrix(&self) {
         for x in 0..self.rows {
             for y in 0..self.cols {
@@ -244,3 +280,4 @@ impl Matrix {
         }
     }
 }
+
