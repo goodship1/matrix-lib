@@ -124,6 +124,40 @@ impl SparseMatrix {
         Some(new_matrix)
     }
 
+    pub fn minus_sparse(&self, matone: &SparseMatrix) -> Option<SparseMatrix> {
+        assert_eq!(self.rows, matone.rows, "Matrix dimensions mismatch.");
+        assert_eq!(self.cols, matone.cols, "Matrix dimension mismatch.");
+
+        let mut new_matrix = SparseMatrix::new(self.rows, self.cols);
+        for (x, y, z) in self.iter_nonzero() {
+            let valueone = matone.get(x, y);
+            let minus = z - valueone;
+            if minus != 0.0 {
+                new_matrix.set(x, y, minus);
+            }
+        }
+        Some(new_matrix)
+    }
+
+    pub fn multiply_sparse(&self, matone: &SparseMatrix) -> Option<SparseMatrix> {
+        assert_eq!(self.cols, matone.rows, "Matrix dimensions mismatch");
+
+        let mut new_matrix = SparseMatrix::new(self.rows, matone.cols);
+
+        for (row, col, value) in self.iter_nonzero() {
+            for x in 0..matone.cols {
+                let valueone = matone.get(col, x);
+                let product = value * valueone;
+                let sum = new_matrix.get(row, x) + product;
+                if sum != 0.0 {
+                    new_matrix.set(row, x, sum);
+                }
+            }
+        }
+
+        Some(new_matrix)
+    }
+
     pub fn transpose_sparse(&self) -> SparseMatrix {
         let mut new_matrix = SparseMatrix::new(self.cols, self.rows);
 
