@@ -167,4 +167,15 @@ impl SparseMatrix {
 
         new_matrix
     }
+
+    pub fn scalar_multiply_sparse(&self, scalar: f64) -> SparseMatrix {
+        let mut new_matrix = SparseMatrix::new(self.rows, self.cols);
+
+        for (row, col, value) in self.iter_nonzero() {
+            let product = value * scalar;
+            new_matrix.set(row, col, product);
+        }
+
+        new_matrix
+    }
 }
