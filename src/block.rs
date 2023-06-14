@@ -59,6 +59,38 @@ where
         }
         Err("Invalid element index".to_string())
     }
+}
 
-    // Other operations can be implemented here on in operations.rs might try to break all operations up
+use std::ops::Add;
+
+impl<T> Add for BlockMatrix<T>
+where
+    T: Default + Clone + Add<Output = T>,
+{
+    type Output = Result<BlockMatrix<T>, String>;
+
+    fn add(self, other: BlockMatrix<T>) -> Result<BlockMatrix<T>, String> {
+        if self.block_rows == other.block_rows
+            && self.block_cols == other.block_cols
+            && self.block_size == other.block_size
+        {
+            let mut result = BlockMatrix::new(self.block_rows, self.block_cols, self.block_size);
+            for row in 0..self.block_rows {
+                for col in 0..self.block_cols {
+                    let self_block = self.get_block(row, col).ok_or("Invalid block index")?;
+                    let other_block = other.get_block(row, col).ok_or("Invalid block index")?;
+                    let mut sum_block = vec![vec![T::default(); self.block_size]; self.block_size];
+                    for i in 0..self.block_size {
+                        for j in 0..self.block_size {
+                            sum_block[i][j] = self_block[i][j].clone() + other_block[i][j].clone();
+                        }
+                    }
+                    result.set_block(row, col, sum_block)?;
+                }
+            }
+            Ok(result)
+        } else {
+            Err("Matrix dimensions mismatch".to_string())
+        }
+    }
 }
