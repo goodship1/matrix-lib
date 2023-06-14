@@ -1,8 +1,8 @@
 pub mod matrix;
 pub mod sparse;
 //mod block;
-//mod banded;
+pub mod banded;
 //mod operations;
-
+pub use banded::BandSparseMatrix;
 pub use matrix::Matrix;
 pub use sparse::SparseMatrix;
