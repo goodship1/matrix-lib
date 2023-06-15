@@ -1,6 +1,6 @@
 pub mod matrix;
 pub mod sparse;
-//mod block;
+pub mod block;
 pub mod banded;
 //mod operations;
 pub use banded::BandSparseMatrix;
